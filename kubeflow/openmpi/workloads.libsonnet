@@ -59,8 +59,9 @@ local ROLE_WORKER = "worker";
   volumes(params, dataPVCName):: [
     {
       name: "openmpi-data",
-      persistentVolumeClaim:
-          claimName:
+      persistentVolumeClaim: {
+          claimName: dataPVCName
+      }
     },
     {
       name: "openmpi-secrets",
