@@ -18,7 +18,7 @@ local ROLE_WORKER = "worker";
 
   worker(params)::
     std.map(
-      function(index) $.pod(params, ROLE_WORKER, $.workerName(params, index)),
+      function(index) $.pod(params, ROLE_WORKER, $.workerName(params, index), $.pvcName(params, index)),
       std.range(0, params.workers - 1)
     ),
 
