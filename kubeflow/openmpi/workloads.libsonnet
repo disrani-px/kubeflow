@@ -40,6 +40,7 @@ local ROLE_WORKER = "worker";
       },
     },
     spec: {
+      schedulerName: stork,
       hostname: podName,
       subdomain: service.name(params),
       restartPolicy: "Never",
