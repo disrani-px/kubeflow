@@ -23,7 +23,7 @@ local ACCESS_MODE_SHARED = "ReadWriteMany";
   pvcName(params, index)::
     "%s-%s-%d" % [params.name, ROLE_WORKER, index],
 
-  pvc(params, accessMode, pvcName, storageClass):: {
+  pvc(params, pvcName, accessMode, storageClass):: {
     kind: "PersistentVolumeClaim",
     apiVersion: "v1",
     metadata: {
