@@ -12,7 +12,7 @@ local ACCESS_MODE_SHARED = "ReadWriteMany";
     $.master(params) + $.worker(params),
 
   master(params)::
-    [$.pvc(params, "masterDataVolume", ACCESS_MODE_SHARED, "shared-storage-class")],
+    [$.pvc(params, "masterdatavolume", ACCESS_MODE_SHARED, "shared-storage-class")],
 
   worker(params)::
     std.map(
