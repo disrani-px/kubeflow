@@ -11,7 +11,7 @@ local ROLE_WORKER = "worker";
     $.master(params) + $.worker(params),
 
   master(params)::
-    [$.pod(params, ROLE_MASTER, $.masterName(params), "masterVolume")],
+    [$.pod(params, ROLE_MASTER, $.masterName(params), "masterdataolume")],
 
   masterName(params)::
     "%s-%s" % [params.name, ROLE_MASTER],
