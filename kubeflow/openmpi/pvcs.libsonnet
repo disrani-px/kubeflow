@@ -16,7 +16,7 @@ local ACCESS_MODE_SHARED = "ReadWriteMany";
 
   worker(params)::
     std.map(
-      function(index) $.pvc(params, ACCESS_MODE_NONSHARED, $.pvcName(params, index), "non-shared-storage-class"),
+      function(index) $.pvc(params, $.pvcName(params, index), ACCESS_MODE_NONSHARED, "non-shared-storage-class"),
       std.range(0, params.workers - 1)
     ),
 
