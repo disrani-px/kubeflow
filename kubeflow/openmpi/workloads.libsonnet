@@ -11,7 +11,7 @@ local ROLE_WORKER = "worker";
     $.master(params) + $.worker(params),
 
   master(params)::
-    [$.pod(params, ROLE_MASTER, $.masterName(params))],
+    [$.pod(params, ROLE_MASTER, $.masterName(params), "masterVolume")],
 
   masterName(params)::
     "%s-%s" % [params.name, ROLE_MASTER],
@@ -25,7 +25,10 @@ local ROLE_WORKER = "worker";
   workerName(params, index)::
     "%s-%s-%d" % [params.name, ROLE_WORKER, index],
 
-  pod(params, role, podName):: {
+  pvcName(params, index)::
+    "%s-%s-%d" % [params.name, ROLE_WORKER, index],
+
+  pod(params, role, podName, dataPVCName):: {
     kind: "Pod",
     apiVersion: "v1",
     metadata: {
@@ -43,7 +46,7 @@ local ROLE_WORKER = "worker";
       terminationGracePeriodSeconds: 30,
       dnsPolicy: "ClusterFirstWithHostNet",
       schedulerName: params.schedulerName,
-      volumes: $.volumes(params),
+      volumes: $.volumes(params, dataPVCName),
       containers: $.containers(params, role, podName),
       imagePullSecrets: [{ name: secret } for secret in util.toArray(params.imagePullSecrets)],
       serviceAccountName: serviceaccount.name(params),
@@ -53,10 +56,11 @@ local ROLE_WORKER = "worker";
     },
   },
 
-  volumes(params):: [
+  volumes(params, dataPVCName):: [
     {
       name: "openmpi-data",
-      emptyDir: {},
+      persistentVolumeClaim:
+          claimName:
     },
     {
       name: "openmpi-secrets",
